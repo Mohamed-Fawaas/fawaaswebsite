@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Mohamed Fawaas</title>
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+            --secondary-gradient: linear-gradient(135deg, #06b6d4, #3b82f6);
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --accent: #06f7d5;
+            --accent2: #a855f7;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: var(--dark-bg);
+            color: #cbd5e1;
+            overflow-x: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* ─── Back Button ─── */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .back-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+            color: #0f172a;
+        }
+
+        /* ─── Hero ─── */
+        .about-hero {
+            background: var(--primary-gradient);
+            padding: 7rem 1.5rem 5rem;
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .about-hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            color: #fff;
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 0.5rem;
+        }
+        .hero-degree-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: #fff;
+            margin-top: 0.8rem;
+        }
+        .hero-degree-badge i { color: #ffd93d; }
+        .typewrite-wrap { min-height: 2rem; }
+        .wrap { border-right: 2px solid var(--accent); padding-right: 3px; }
+
+        /* ─── Section Headings ─── */
+        .section-heading {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .section-heading span {
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0.6rem auto 0;
+            border-radius: 3px;
+        }
+
+        /* ─── About Intro Card ─── */
+        .intro-card {
+            background: var(--dark-surface);
+            border: 1px solid #334155;
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .intro-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .intro-text h3 {
+            color: #f8fafc;
+            font-size: 1.4rem;
+            margin-bottom: 0.4rem;
+        }
+        .intro-text p { color: #94a3b8; line-height: 1.7; }
+        .degree-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99,102,241,0.15);
+            border: 1px solid rgba(99,102,241,0.4);
+            color: #a5b4fc;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            margin-top: 0.6rem;
+        }
+
+        /* ─── Timeline ─── */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(to bottom, #6366f1, #06f7d5);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(50% + 2.5rem);
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        .timeline-item.right {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: calc(50% + 2.5rem);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 1.2rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--dark-bg);
+            z-index: 1;
+        }
+        .timeline-card {
+            background: var(--dark-surface);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 1.8rem;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .timeline-card h4 {
+            color: #f8fafc;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-card .org {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-card .year {
+            color: #64748b;
+            font-size: 0.82rem;
+            margin-bottom: 0.7rem;
+        }
+        .timeline-card p { color: #94a3b8; font-size: 0.93rem; line-height: 1.6; margin: 0; }
+        .timeline-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+        .icon-edu { background: rgba(99,102,241,0.2); color: #818cf8; }
+        .icon-work { background: rgba(6,247,213,0.12); color: var(--accent); }
+
+        /* ─── Skills ─── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+        .skill-badge {
+            background: rgba(6,247,213,0.08);
+            color: var(--accent);
+            border: 1px solid rgba(6,247,213,0.25);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .skill-badge i { font-size: 1.05rem; flex-shrink: 0; }
+        .skill-badge:hover {
+            transform: translateY(-3px);
+            background: rgba(6,247,213,0.16);
+            box-shadow: 0 6px 18px rgba(6,247,213,0.12);
+        }
+
+        /* ─── Certifications ─── */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+        .certification-card {
+            background: var(--dark-surface);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 1.6rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .certification-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 20%, rgba(6,247,213,0.07) 50%, transparent 80%);
+            animation: shine 5s infinite;
+        }
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            border-color: #4b5563;
+        }
+        .cert-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(6,247,213,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .certification-card h5 {
+            color: #f1f5f9;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            line-height: 1.4;
+        }
+        .certification-card .cert-org {
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .certification-card .cert-date {
+            color: #64748b;
+            font-size: 0.78rem;
+        }
+
+        /* ─── Philosophy ─── */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+        .philosophy-card {
+            background: var(--dark-surface);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+        }
+        .philosophy-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(6,247,213,0.3);
+        }
+        .philosophy-card .ph-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .philosophy-card h5 { color: #f8fafc; font-size: 1rem; margin-bottom: 0.5rem; }
+        .philosophy-card p { color: #94a3b8; font-size: 0.88rem; line-height: 1.6; margin: 0; }
+
+        /* ─── CTA ─── */
+        .cta-section {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .cta-primary {
+            background: linear-gradient(45deg, var(--accent), #3b82f6);
+            color: #0f172a;
+        }
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(6,247,213,0.3);
+            color: #0f172a;
+        }
+        .cta-outline {
+            border: 1.5px solid var(--accent);
+            color: var(--accent);
+        }
+        .cta-outline:hover {
+            background: rgba(6,247,213,0.1);
+            transform: translateY(-3px);
+            color: var(--accent);
+        }
+
+        /* ─── Animations ─── */
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-150%); }
+            100% { transform: rotate(45deg) translateX(150%); }
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            .timeline::after { left: 18px; }
+            .timeline-item,
+            .timeline-item.right {
+                justify-content: flex-start;
+                padding-left: 3.5rem;
+                padding-right: 0;
+            }
+            .timeline-dot { left: 18px; }
+            .intro-card { flex-direction: column; text-align: center; }
+            .intro-avatar { margin: 0 auto; }
+            .skills-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .cert-grid { grid-template-columns: 1fr; }
+            .philosophy-grid { grid-template-columns: 1fr; }
+            .about-hero { padding: 5.5rem 1rem 4rem; }
+        }
+        @media (max-width: 480px) {
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* ─── Spacing helpers ─── */
+        .section-block { padding: 4rem 0; }
+        .section-block + .section-block { border-top: 1px solid #1e293b; }
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-btn" data-aos="fade-right">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Hero Section -->
+    <section class="about-hero" data-aos="fade-down">
+        <div class="container">
+            <h1>Mohamed Fawaas</h1>
+            <p class="hero-subtitle mt-2">
+                <span class="typewrite-wrap">
+                    <span class="typewrite" data-period="2000"
+                          data-type='["Software Engineer","Full Stack Developer","Mobile App Developer","Tech Enthusiast","BSc Software Engineering Graduate"]'>
+                    </span>
+                </span>
+            </p>
+            <div class="hero-degree-badge" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-graduation-cap"></i>
+                BSc (Hons) Software Engineering &nbsp;·&nbsp; Cardiff Metropolitan University, UK
+                &nbsp;·&nbsp; ICBT Campus, Colombo
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+
+        <!-- ── About Me Intro ── -->
+        <section class="section-block" data-aos="fade-up">
+            <h2 class="section-heading">Who I Am <span></span></h2>
+            <div class="intro-card">
+                <div class="intro-avatar">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                <div class="intro-text">
+                    <h3>Mohamed Fawaas</h3>
+                    <div class="degree-pill">
+                        <i class="fas fa-university"></i>
+                        Bachelor of Software Engineering (Hons) · Cardiff Metropolitan University, UK
+                    </div>
+                    <p class="mt-3">
+                        I'm a passionate Software Engineering graduate from ICBT Campus, Colombo — affiliated with
+                        Cardiff Metropolitan University, UK. With a strong foundation in full-stack development and
+                        emerging technologies, I build scalable, user-centric digital solutions. My journey spans
+                        web, mobile, cloud, and AI — always driven by curiosity and a commitment to clean,
+                        maintainable code.
+                    </p>
+                    <p>
+                        Beyond code, I share knowledge through my YouTube channel
+                        <strong style="color:var(--accent)">Future Coders Hub</strong>, mentor aspiring developers,
+                        and stay actively involved in the Sri Lankan tech community.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Education & Experience ── -->
+        <section class="section-block" data-aos="fade-up">
+            <h2 class="section-heading">Education &amp; Experience <span></span></h2>
+            <div class="timeline">
+
+                <!-- BSc Degree -->
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon icon-edu"><i class="fas fa-graduation-cap"></i></div>
+                        <h4>BSc (Hons) Software Engineering</h4>
+                        <p class="org">Cardiff Metropolitan University, UK &nbsp;|&nbsp; ICBT Campus, Colombo</p>
+                        <p class="year"><i class="far fa-calendar-alt me-1"></i>Completed</p>
+                        <p>
+                            Completed a Bachelor of Software Engineering (Hons) degree awarded by Cardiff Metropolitan
+                            University, UK, studied at ICBT Campus, Colombo, Sri Lanka. Covered software architecture,
+                            advanced algorithms, cloud systems, AI/ML, and agile project delivery.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Higher Diploma -->
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon icon-edu"><i class="fas fa-award"></i></div>
+                        <h4>Higher Diploma in Computing &amp; Software Engineering</h4>
+                        <p class="org">ICBT Campus, Colombo</p>
+                        <p class="year"><i class="far fa-calendar-alt me-1"></i>2022 – 2023</p>
+                        <p>Foundation in computing principles, software engineering practices, and full-stack development. Pathway to the BSc (Hons) degree programme.</p>
+                    </div>
+                </div>
+
+                <!-- Junior Developer -->
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon icon-work"><i class="fas fa-briefcase"></i></div>
+                        <h4>Junior Software Developer</h4>
+                        <p class="org">Freelance / Projects</p>
+                        <p class="year"><i class="far fa-calendar-alt me-1"></i>2023 – Present</p>
+                        <p>Developing web and mobile applications using modern frameworks. Building client projects, open-source contributions, and full-stack solutions.</p>
+                    </div>
+                </div>
+
+                <!-- Content Creator -->
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon icon-work"><i class="fab fa-youtube"></i></div>
+                        <h4>Tech Content Creator</h4>
+                        <p class="org">Future Coders Hub – YouTube</p>
+                        <p class="year"><i class="far fa-calendar-alt me-1"></i>2023 – Present</p>
+                        <p>Creating educational tech content for aspiring developers — covering web development, programming tutorials, and software engineering concepts.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── Technical Skills ── -->
+        <section class="section-block" data-aos="fade-up">
+            <h2 class="section-heading">Technical Expertise <span></span></h2>
+            <div class="skills-grid">
+                <div class="skill-badge"><i class="fab fa-react"></i>Full-Stack Dev</div>
+                <div class="skill-badge"><i class="fab fa-android"></i>Mobile Dev</div>
+                <div class="skill-badge"><i class="fas fa-cloud"></i>Cloud Computing</div>
+                <div class="skill-badge"><i class="fas fa-pencil-ruler"></i>UI/UX Design</div>
+                <div class="skill-badge"><i class="fas fa-code"></i>Programming</div>
+                <div class="skill-badge"><i class="fas fa-project-diagram"></i>DSA</div>
+                <div class="skill-badge"><i class="fas fa-database"></i>Database Mgmt</div>
+                <div class="skill-badge"><i class="fas fa-code-branch"></i>Version Control</div>
+                <div class="skill-badge"><i class="fas fa-laptop-code"></i>Web Development</div>
+                <div class="skill-badge"><i class="fas fa-cogs"></i>Software Principles</div>
+                <div class="skill-badge"><i class="fas fa-bug"></i>Testing &amp; Debug</div>
+                <div class="skill-badge"><i class="fas fa-shield-alt"></i>Cybersecurity</div>
+                <div class="skill-badge"><i class="fas fa-robot"></i>AI / ML</div>
+                <div class="skill-badge"><i class="fas fa-sitemap"></i>System Design</div>
+                <div class="skill-badge"><i class="fas fa-users"></i>Teamwork</div>
+                <div class="skill-badge"><i class="fas fa-clock"></i>Time Management</div>
+                <div class="skill-badge"><i class="fab fa-python"></i>Python</div>
+                <div class="skill-badge"><i class="fab fa-java"></i>Java</div>
+                <div class="skill-badge"><i class="fab fa-js"></i>JavaScript / TS</div>
+                <div class="skill-badge"><i class="fas fa-fire"></i>Agile / Scrum</div>
+                <div class="skill-badge"><i class="fab fa-docker"></i>Docker / DevOps</div>
+                <div class="skill-badge"><i class="fas fa-network-wired"></i>REST / GraphQL</div>
+            </div>
+        </section>
+
+        <!-- ── Development Philosophy ── -->
+        <section class="section-block" data-aos="fade-up">
+            <h2 class="section-heading">My Philosophy <span></span></h2>
+            <div class="philosophy-grid">
+                <div class="philosophy-card" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="ph-icon" style="background:rgba(99,102,241,0.15);color:#818cf8;">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h5>Clean Architecture</h5>
+                    <p>Writing code that is readable, maintainable, and scalable — built to last beyond the deadline.</p>
+                </div>
+                <div class="philosophy-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="ph-icon" style="background:rgba(6,247,213,0.12);color:var(--accent);">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h5>User-Centric Design</h5>
+                    <p>Every feature starts with the user. Great software feels effortless because it was thoughtfully designed.</p>
+                </div>
+                <div class="philosophy-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="ph-icon" style="background:rgba(168,85,247,0.15);color:#c084fc;">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h5>Continuous Learning</h5>
+                    <p>Technology evolves fast. I stay curious, keep experimenting, and embrace new tools and methodologies.</p>
+                </div>
+                <div class="philosophy-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="ph-icon" style="background:rgba(234,179,8,0.12);color:#fbbf24;">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h5>Collaboration First</h5>
+                    <p>The best products are built by teams. I value open communication, code reviews, and shared ownership.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Certifications ── -->
+        <section class="section-block" data-aos="fade-up">
+            <h2 class="section-heading">Certifications <span></span></h2>
+            <div class="cert-grid">
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                    <h5>Python Programming with Visual Studio Code</h5>
+                    <p class="cert-org">Microsoft Learn Student Ambassadors</p>
+                    <p class="cert-date">Issued Feb 2025 · Expires Feb 2027</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="cert-icon"><i class="fas fa-code"></i></div>
+                    <h5>Front-End Web Development</h5>
+                    <p class="cert-org">University of Moratuwa</p>
+                    <p class="cert-date">Issued Jan 2025 · Expires Jan 2027</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-icon"><i class="fab fa-js"></i></div>
+                    <h5>Master of Full Stack Development</h5>
+                    <p class="cert-org">Udemy</p>
+                    <p class="cert-date">Issued Dec 2024 · Expires Dec 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="cert-icon"><i class="fab fa-laravel"></i></div>
+                    <h5>PHP Laravel: Real Estate Management</h5>
+                    <p class="cert-org">Udemy</p>
+                    <p class="cert-date">Issued Dec 2024 · Expires Oct 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="cert-icon"><i class="fas fa-users"></i></div>
+                    <h5>Effective Teamwork and Team Building</h5>
+                    <p class="cert-org">Udemy</p>
+                    <p class="cert-date">Issued Oct 2024 · Expires Oct 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="cert-icon"><i class="fab fa-swift"></i></div>
+                    <h5>Build Swift Mobile Apps with Watson AI</h5>
+                    <p class="cert-org">IBM</p>
+                    <p class="cert-date">Issued Aug 2024 · Expires Aug 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                    <h5>Create Voice Assistant with GPT-3 &amp; Watson</h5>
+                    <p class="cert-org">IBM</p>
+                    <p class="cert-date">Issued Aug 2024 · Expires Aug 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="cert-icon"><i class="fas fa-brain"></i></div>
+                    <h5>Psychology and Counselling</h5>
+                    <p class="cert-org">Orinsto Institute</p>
+                    <p class="cert-date">Issued Aug 2024 · Expires Aug 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="cert-icon"><i class="fab fa-python"></i></div>
+                    <h5>Data Analysis with Python</h5>
+                    <p class="cert-org">IBM</p>
+                    <p class="cert-date">Issued Jul 2024 · Expires Jul 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="cert-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h5>Web Design for Beginners</h5>
+                    <p class="cert-org">University of Moratuwa</p>
+                    <p class="cert-date">Issued Jul 2024 · Expires Jul 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-icon"><i class="fas fa-wifi"></i></div>
+                    <h5>IoT Influence in IT Sector</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued Jun 2024 · Expires Jun 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="cert-icon"><i class="fab fa-react"></i></div>
+                    <h5>Build Social Media Clone with MERN</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued Jun 2024 · Expires Jun 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="cert-icon"><i class="fas fa-comments"></i></div>
+                    <h5>Build Your Own Chatbot</h5>
+                    <p class="cert-org">IBM</p>
+                    <p class="cert-date">Issued Jun 2024 · Expires Jun 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="cert-icon"><i class="fab fa-python"></i></div>
+                    <h5>Python 101 for Data Science</h5>
+                    <p class="cert-org">IBM</p>
+                    <p class="cert-date">Issued Jun 2024 · Expires Jun 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-icon"><i class="fas fa-database"></i></div>
+                    <h5>SQL and Relational Databases 101</h5>
+                    <p class="cert-org">IBM</p>
+                    <p class="cert-date">Issued Jun 2024 · Expires Jun 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="cert-icon"><i class="fas fa-microchip"></i></div>
+                    <h5>IoT with Artificial Intelligence</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued May 2024 · Expires May 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="cert-icon"><i class="fas fa-globe"></i></div>
+                    <h5>IoT Web Interface Development</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued May 2024 · Expires May 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                    <h5>MSc in Artificial Intelligence</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued May 2024 · Expires May 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-icon"><i class="fas fa-layer-group"></i></div>
+                    <h5>MSc in Full Stack Development</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued May 2024 · Expires May 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="cert-icon"><i class="fas fa-wifi"></i></div>
+                    <h5>MSc in Internet of Things</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued Apr 2024 · Expires Apr 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="cert-icon"><i class="fab fa-js"></i></div>
+                    <h5>JavaScript Specialist Certification</h5>
+                    <p class="cert-org">Developers Stack Academy</p>
+                    <p class="cert-date">Issued Mar 2024 · Expires Mar 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="cert-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h5>Build a Full Stack Project</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued Feb 2024 · Expires Feb 2026</p>
+                </div>
+
+                <div class="certification-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                    <h5>Connecting Devices with Cloud – IoT</h5>
+                    <p class="cert-org">NoviTech R&amp;D Pvt Ltd</p>
+                    <p class="cert-date">Issued Feb 2024 · Expires Feb 2026</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── CTA ── -->
+        <section class="cta-section" data-aos="zoom-in">
+            <h3 style="color:#f8fafc;margin-bottom:1.5rem;">Let's Build Something Together</h3>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                <a href="index.html#projects" class="cta-btn cta-primary">
+                    <i class="fas fa-code"></i> View Projects
+                </a>
+                <a href="index.html#contact" class="cta-btn cta-outline">
+                    <i class="fas fa-envelope"></i> Contact Me
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer style="background:#0a1120;text-align:center;padding:1.5rem;color:#475569;font-size:0.88rem;border-top:1px solid #1e293b;">
+        © <script>document.write(new Date().getFullYear());</script> Mohamed Fawaas · All rights reserved
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 900, once: true, easing: 'ease-out-back' });
+
+        // Typewriter Effect
+        var TxtType = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+        TxtType.prototype.tick = function() {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+            this.txt = this.isDeleting
+                ? fullTxt.substring(0, this.txt.length - 1)
+                : fullTxt.substring(0, this.txt.length + 1);
+            this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+            var that = this;
+            var delta = 200 - Math.random() * 100;
+            if (this.isDeleting) delta /= 2;
+            if (!this.isDeleting && this.txt === fullTxt) { delta = this.period; this.isDeleting = true; }
+            else if (this.isDeleting && this.txt === '') { this.isDeleting = false; this.loopNum++; delta = 500; }
+            setTimeout(function() { that.tick(); }, delta);
+        };
+        window.onload = function() {
+            var els = document.getElementsByClassName('typewrite');
+            for (var i = 0; i < els.length; i++) {
+                var toRotate = els[i].getAttribute('data-type');
+                var period = els[i].getAttribute('data-period');
+                if (toRotate) new TxtType(els[i], JSON.parse(toRotate), period);
+            }
+        };
+    </script>
+</body>
+</html>
