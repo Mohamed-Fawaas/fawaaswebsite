@@ -5,7 +5,7 @@ SOCIALS = {  # put your real links; "#" = not set yet
  "instagram": "#",   # <- add your Instagram link
  "tiktok":    "#",   # <- add your TikTok link
  "linkedin":  "https://www.linkedin.com/in/mohamed-fawaas",
- "github":    "https://github.com/Mohamed-Fawaas",
+ "github":    "https://github.com/mohamedfawaas",
 }
 # Tech key -> (label, icon class)
 T = {
@@ -30,7 +30,8 @@ T = {
  "ls":("localStorage","bi bi-device-hdd-fill"),"tinymce":("TinyMCE","bi bi-fonts"),
  "pdf":("jsPDF","bi bi-filetype-pdf"),"canvas":("Canvas API","bi bi-brush-fill"),
  "speech":("Web Speech API","bi bi-mic-fill"),"i18n":("EN / Sinhala / Tamil UI","bi bi-translate"),
- "mail":("PHPMailer","bi bi-envelope-at-fill"),"flatlaf":("FlatLaf","bi bi-palette-fill"),
+ "mail":("PHPMailer","bi bi-envelope-at-fill"),"sqlite":("SQLite","devicon-sqlite-plain colored"),"gradle":("Gradle","devicon-gradle-plain colored"),
+ "netbeans":("NetBeans IDE","devicon-netbeans-plain colored"),"jdbc":("JDBC","bi bi-database-fill-gear"),"jcal":("JCalendar","bi bi-calendar-event-fill"),"flatlaf":("FlatLaf","bi bi-palette-fill"),
 }
 P = []
 def add(**k): P.append(k)
@@ -271,6 +272,66 @@ add(slug="car-racing-game", name="Car Racing Game", icon="bi-controller", hue=0,
  future=["High-score leaderboard in a database","More tracks and cars","Multiplayer"])
 
 SOCIALS["tiktok"] = "https://www.tiktok.com/@fawaas.coder"
+add(slug="luxevista-resort", name="LuxeVista Resort App", icon="bi-building-fill-check", hue=45, cat="Mobile / Android",
+ tag="Android app for resort room booking, service reservations and guest support",
+ summary="Native Android resort app: register/login with SQLite, browse rooms, book, pay with validated card form, reserve spa/dining/cabana, view offers and nearby attractions.",
+ about="LuxeVista Resort is a native Android (Java) guest app. Users register and log in against a local SQLite database, land on a dashboard and move through a complete booking journey: choose a room, confirm the booking, enter payment details (validated, simulated payment) and receive a thank-you screen. Extra screens cover service reservations, exclusive offers, nearby attractions and contact support.",
+ tech=["java","android","sqlite","gradle"],
+ langs="Java · XML · SQL (SQLite)",
+ features=["Register and login backed by SQLite (DatabaseHelper)","Dashboard with 5 guest services","Room booking: Ocean View Suite, Deluxe, Superior and Executive Suite","Booking confirmation passed to payment via Intent extras","Payment form validation: 16-digit card, MM/YY expiry, 3-digit CVV (simulated payment)","Spa, dining and cabana reservation screen","Offers, nearby attractions and contact-support screens"],
+ funcs=[("DatabaseHelper.addUser / checkUser","Creates the users table and registers / verifies accounts in SQLite."),("RoomBookingActivity","Shows the room options and sends the chosen room and price to the confirmation screen."),("PaymentActivity","Validates card number, expiry and CVV before moving to the thank-you screen (no real payment is processed)."),("DashboardActivity","Central navigation to booking, services, offers, attractions and support."),("ServiceReservationActivity","Handles spa, dining and cabana reservation actions.")],
+ struct="LuxeVistaResort/\n├─ app/src/main/java/com/example/petbook/\n│  ├─ Login / Register / Dashboard / DatabaseHelper\n│  ├─ RoomBooking / BookingConfirmation / Payment / ThankYou\n│  └─ ServiceReservation / Offers / Attractions / ContactSupport\n└─ app/src/main/res/layout/  (12 activity layouts)",
+ run=["# Open the folder in Android Studio","# Let Gradle sync, then pick an emulator or device (minSdk 21)","# Run the 'app' configuration"],
+ future=["Real room availability and date picker","Server-side booking and payment gateway","Push notifications for reservations","Password hashing for stored credentials"])
+
+add(slug="city-cycle-rentals", name="CityCycle Rentals", icon="bi-bicycle", hue=160, cat="Mobile / Android",
+ tag="Android bike-rental app with live rental timer",
+ summary="Android app where riders sign up, log in, pick a bike, track a live rental timer, extend by 30 minutes or end the ride.",
+ about="CityCycle Rentals is a compact native Android (Java) app. Riders create an account stored in SQLite, log in, choose one of the available bikes and manage the active rental from a dedicated screen with a running HH:MM:SS timer, a +30 minute extension and an end-rental action that returns to the profile.",
+ tech=["java","android","sqlite","gradle"],
+ langs="Java · XML · SQL (SQLite)",
+ features=["Sign-up and login using SQLite","Rent screen with three bikes","Live rental timer updated every second (Handler)","Extend rental by 30 minutes","End rental and return to the rider profile","Profile screen for the signed-in user"],
+ funcs=[("RentalActivity.startRental","Passes the chosen bike ID to the rental management screen."),("RentalManagementActivity.startRentalTimer","Handler loop that updates the HH:MM:SS timer every second."),("Extend / End buttons","Adds 1800 seconds to the timer or stops the rental and opens the profile."),("SignUpActivity / LoginActivity","Create and verify accounts in the local SQLite database.")],
+ struct="CityCycleRentals/\n├─ app/src/main/java/com/example/citycyclerentals/\n│  ├─ MainActivity LoginActivity SignUpActivity\n│  ├─ ProfileActivity RentalActivity\n│  └─ RentalManagementActivity\n└─ app/src/main/res/layout/",
+ run=["# Open the folder in Android Studio","# Sync Gradle (minSdk 21, targetSdk 35)","# Run on an emulator or a physical device"],
+ future=["Map view with nearby bike stations","Pricing by rental duration","Persist active rentals and history","Online payments and QR unlock"])
+
+add(slug="paws-shop", name="The Paws Shop", icon="bi-heart-fill", hue=25, cat="Desktop / Java",
+ tag="Java Swing pet-shop management system with manager and cashier roles",
+ summary="Desktop pet-shop system in Java Swing + MySQL: role-based dashboards, cashier management, pet suppliers and product categories.",
+ about="The Paws Shop is a NetBeans Java Swing desktop application backed by MySQL over JDBC. A manager dashboard handles cashiers, pet suppliers and categories, while cashiers log in to their own dashboard. Suppliers can be added, viewed, searched and updated, and cashier accounts are stored in the users table.",
+ tech=["java","swing","mysql","jdbc","netbeans"],
+ langs="Java · SQL",
+ features=["Login form with manager and cashier roles","Manager dashboard and cashier dashboard","Add and view cashiers (users table with salary)","Add, view, search and update pet suppliers","Add product categories","MySQL schema included (pawshop_users, pawshop_categories)"],
+ funcs=[("LoginForm","Authenticates the manager or a cashier and opens the matching dashboard."),("DBConnection.getConnection","Loads the MySQL driver and returns a JDBC connection."),("Cashier/AddCashier, ViewCashier","Create and list cashier accounts."),("PetSupplier/addPetSupplier, searchSupplier, ViewPetSupplier","CRUD and search for supplier records."),("CategoryAdd/addCatgory","Stores product categories.")],
+ struct="The Paws Shop/\n├─ src/the/paws/shop/\n│  ├─ LoginForm managerdashboard cashierdasboard DBConnection\n│  ├─ Cashier/  PetSupplier/  CategoryAdd/\n├─ database/ (SQL dumps)\n└─ dist/The_Paws_Shop.jar",
+ run=["# Import database/*.sql into MySQL (database: pawshop)","# Set URL, user and password in DBConnection.java","# Open in NetBeans and run, or: java -jar dist/The_Paws_Shop.jar"],
+ future=["Sales and billing module with receipts","Stock tracking per pet and accessory","Hashed passwords and configurable login","Reports and printable invoices"])
+
+add(slug="hr-system", name="HR Management System", icon="bi-people-fill", hue=205, cat="Desktop / Java",
+ tag="Java Swing HR system with admin, manager and assistant roles",
+ summary="Desktop HR system in Java Swing + MySQL: three login roles, employees, departments and designations, with search, update and delete.",
+ about="HR System is a NetBeans Java Swing desktop application using MySQL. It separates access into admin, manager and assistant logins. Admins and managers create departments and designations and manage employee records (EPF number, email, department, designation), while assistants work with employee search and updates.",
+ tech=["java","swing","mysql","jdbc","netbeans"],
+ langs="Java · SQL",
+ features=["Separate admin, manager and assistant logins","Add, search, update and delete employees","Departments and designations management","Add managers and assistants","Role-specific menus","MySQL schema: admin, manager, asisstent, departments, employee"],
+ funcs=[("DBConnection.connect","Opens the JDBC connection to the hrsystem database."),("addemployeesnew / searchemployee","Insert, look up, update and delete employee rows."),("adddepart / adddesignations","Maintain the departments and designations lists."),("loginadmin / loginmanager / loginasisstent","Role-based authentication leading to each menu."),("addmanager / addasisstent","Register new manager and assistant accounts.")],
+ struct="HRSYSTEM/\n├─ src/\n│  ├─ Firstpage mainmenu lastpage\n│  ├─ login*  adminmenu managermenu asisstent_menu\n│  ├─ addemployeesnew searchemployee adddepart adddesignations\n│  └─ icons/\n├─ hrsystem.sql\n└─ dist/HRSYSTEM.jar",
+ run=["# Import hrsystem.sql into MySQL","# Update the connection URL and credentials in DBConnection.java","# Open in NetBeans and run, or: java -jar dist/HRSYSTEM.jar"],
+ future=["Attendance and leave management","Payroll and salary slips","Hashed passwords","Report export to PDF / Excel"])
+
+add(slug="cosmatic-store", name="Cosmetic Store (ConnectMe)", icon="bi-stars", hue=330, cat="Desktop / Java",
+ tag="Java Swing cosmetic store system with admin, manager and user access",
+ summary="Desktop cosmetics inventory app in Java Swing + MySQL: user registration/login, manager and admin dashboards, product CRUD, search and categories.",
+ about="ConnectMe is a NetBeans Java Swing desktop application for a cosmetics store, backed by MySQL (usereg, usertype, category, products). Users register and log in with a type (user, manager, admin). Managers and admins add, edit, delete and search products with cost, price, category and quantity, and manage categories.",
+ tech=["java","swing","mysql","jdbc","jcal","netbeans"],
+ langs="Java · SQL",
+ features=["User registration with user types","Separate user, manager and admin logins","Admin dashboard: add, update and delete products","Category management","Product search and table view","Cost, selling price and quantity tracking","Input validation with clear error dialogs"],
+ funcs=[("LOGIN/managerLogin","Checks username, password and usertype against the usereg table."),("Products/AddProducts","Validates fields and inserts a product (id, name, cost, category, price, quantity)."),("Products/editProducts, deleteProducts","Update or remove products."),("Products/serachProducts, viewProducts","Look up and list stock."),("ADMIN/admindashboard","Entry point to products, categories and user creation.")],
+ struct="CosmaticStore/\n├─ CnnectMe/src/\n│  ├─ LOGIN/  user/  ADMIN/\n│  ├─ Products/ (Add, Edit, Delete, Search, View)\n│  └─ cnnectme/\n├─ CnnectMe/jarfiles/ (MySQL connector, JCalendar)\n└─ databse/ (4 SQL dumps)",
+ run=["# Import the SQL files from databse/ into MySQL (schema: cosmatic)","# Check the connection URL and credentials in the source","# Open CnnectMe in NetBeans and run, or: java -jar CnnectMe/dist/ConnectMe.jar"],
+ future=["Sales and billing with invoices","Low-stock alerts","Hashed passwords","Product images and barcode scanning"])
+
 # TikTok demo videos: slug -> (link, tiktok video id or None).  Add more as you send them.
 TIKTOK = {
  "car-racing-game":     ("https://vt.tiktok.com/ZSphhLmhv/", "7701412756905381138"),
@@ -281,6 +342,7 @@ TIKTOK = {
  "waste-food-donation": ("https://vt.tiktok.com/ZSphMSBWy/", None),
  "aurelia-stays":       ("https://vt.tiktok.com/ZSphhTTxM/", None),
  "aerix-analytics":     ("https://vt.tiktok.com/ZSphrLnQv/", None),
+ "paddy-ai":            ("https://vt.tiktok.com/ZSpSJnRTQ/", None),
 }
 for _p in P:
     if _p["slug"] in TIKTOK: _p["tiktok"], _p["tt"] = TIKTOK[_p["slug"]]
