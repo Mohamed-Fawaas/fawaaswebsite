@@ -35,7 +35,9 @@ def page(i,p):
     else: vid='<div class="video glass"><div class="ph"><div><i class="bi bi-play-circle-fill"></i><h3>Live demo video coming soon</h3><p style="color:var(--mut)">Upload the demo to YouTube, then set <code>yt="VIDEO_ID"</code> for this project in <code>tools/projects_data.py</code> and run <code>python tools/gen.py</code>.</p><a class="btn main" target="_blank" href="%s"><i class="fa-brands fa-youtube"></i> Visit my YouTube channel</a></div></div></div>'%SOCIALS["youtube"]
     badge='<span class="pill hot"><i class="bi bi-mortarboard-fill"></i> %s</span> '%p["badge"] if p.get("badge") else ''
     demo='<a class="btn main" target="_blank" href="%s"><i class="bi bi-box-arrow-up-right"></i> Live Demo</a>'%p["demo"] if p.get("demo") else '<a class="btn main" href="#video"><i class="fa-brands fa-tiktok"></i> Watch Demo</a>' if p.get("tiktok") else '<a class="btn main" href="#video"><i class="bi bi-play-fill"></i> Watch Demo</a>'
-    code='<a class="btn" target="_blank" href="%s"><i class="fa-brands fa-github"></i> Source Code</a>'%p.get("code",SOCIALS["github"])
+    code_url = p.get("code", SOCIALS["github"])
+    code_label = "GitHub Profile" if code_url.rstrip("/").lower() == SOCIALS["github"].rstrip("/").lower() else "Source Code"
+    code = '<a class="btn" target="_blank" rel="noopener noreferrer" href="%s"><i class="fa-brands fa-github"></i> %s</a>' % (e(code_url), code_label)
     return HEAD%p+'''<body style="--h:%d"><div id="bar"></div><div class="aurora"><i></i><i></i><i></i></div>
 <nav class="nav"><a class="brand" href="../index.html#projects"><i class="bi bi-arrow-left-circle-fill"></i> Fawaas</a><div class="links"><a href="#about">Overview</a><a href="#tech">Tech</a><a href="#features">Features</a><a href="#how">How it works</a><a href="#run">Run</a><a href="#future">Future</a><a href="#video">Video</a></div></nav>
 <header class="hero wrap"><div class="reveal">%s<span class="pill"><i class="bi bi-tag-fill"></i> %s</span><div class="ico tilt"><i class="bi %s"></i></div><h1>%s</h1><p class="tag">%s</p>
@@ -65,8 +67,9 @@ def card(i,p):
 os.makedirs(os.path.join(ROOT,"projects"),exist_ok=True)
 for i,p in enumerate(P): open(os.path.join(ROOT,"projects",p["slug"]+".html"),"w",encoding="utf-8").write(page(i,p))
 ip=os.path.join(ROOT,"index.html"); s=open(ip,encoding="utf-8").read()
-sec='<section id="projects" class="projects-section"><div class="container"><h2 class="section-title" data-aos="fade-up">Featured Projects</h2><div class="project-grid">'+''.join(card(i,p) for i,p in enumerate(P))+'</div></div></section>\n\n<!-- Certifications Section -->'
-s,n=re.subn(r'<section id="projects".*?<!-- Certifications Section -->',lambda m:sec,s,count=1,flags=re.S)
+# Keep the Engineering Tools section intact if it follows Projects.
+sec='<section id="projects" class="projects-section"><div class="container"><h2 class="section-title" data-aos="fade-up">Featured Projects</h2><div class="project-grid">'+''.join(card(i,p) for i,p in enumerate(P))+'</div></div></section>'
+s,n=re.subn(r'<section id="projects" class="projects-section">.*?</section>',lambda m:sec,s,count=1,flags=re.S)
 
 # ---------- Certifications section ----------
 OI={"NoviTech":"fa-solid fa-microchip","IBM":"fa-solid fa-cloud","UoM":"fa-solid fa-building-columns","Udemy":"fa-brands fa-udemy","Other":"fa-solid fa-award"}
